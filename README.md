@@ -1,15 +1,11 @@
-# Leveraging the power of the Cloud
+# Making Serverless Work For You
 
-Repo containing the code for my talk _Leveraging the power of the Cloud_.
+There's some code in here that I used for my talk "Making Serverless Work For You". The repository currently holds:
 
-## Common
+1. A `Common` project that holds a BlobStorageRepository
+2. A `Functions` project that holds several Functions used in conjuction with Service Bus and Storage for processing and scaling
+3. A `Frontend` folder that holds the Angular frontend you can also find running overe here: [MSWFY Frontend](https://mswfystorage.z6.web.core.windows.net/)
 
-Common project that contains supporting classes.
+I'll keep the repo updated and I *will* add some more logic in the future.
 
-## Frontend
-
-Angular frontend for the 'Leveraging the power of the Cloud' project.
-
-## Functions
-
-Azure Functions backend (API) that the frontend talks to.
+Hope this helps 🤓
