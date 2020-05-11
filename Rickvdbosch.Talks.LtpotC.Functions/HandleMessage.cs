@@ -2,8 +2,10 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
+
 using Rickvdbosch.Talks.LtpotC.Common.Azure.Storage;
 
 namespace Rickvdbosch.Talks.LtpotC.Functions

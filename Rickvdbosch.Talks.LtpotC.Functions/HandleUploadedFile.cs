@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 

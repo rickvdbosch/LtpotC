@@ -1,5 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
@@ -12,7 +13,7 @@ namespace Rickvdbosch.Talks.LtpotC.Functions
     {
         [FunctionName("UploadScale")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "scale")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "scale")] HttpRequest req,
             [Blob("to-process", FileAccess.Write, Connection = "StorageConnectionString")] Stream stream,
             ILogger log)
         {
