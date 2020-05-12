@@ -1,6 +1,6 @@
 # Leveraging the power of the Cloud
 
-There's some code in here that I used for my talk "Leveraging the power of the Cloudu". The repository currently holds:
+There's some code in here that is used for my talk "Leveraging the power of the Cloud". The repository currently holds:
 
 1. A `Common` project that holds a BlobStorageRepository
 2. A `Functions` project that holds several Functions used in conjuction with Service Bus and Storage for processing and scaling
