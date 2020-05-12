@@ -1,6 +1,9 @@
+using System;
 using System.IO;
+using System.Threading.Tasks;
 
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.ServiceBus;
 using Microsoft.Extensions.Logging;
 
 namespace Rickvdbosch.Talks.LtpotC.Functions
@@ -8,37 +11,20 @@ namespace Rickvdbosch.Talks.LtpotC.Functions
     public static class HandleFile
     {
         [FunctionName("HandleFile")]
-        [return: ServiceBus("process", Connection = "ServiceBusConnectionSend")]
-        public static string Run(
-            [BlobTrigger("to-process/{name}", Connection = "StorageConnectionString")]Stream addedBlob,
+        public static async Task Run(
+            [BlobTrigger("to-process/{name}", Connection = "StorageConnectionString")] Stream addedBlob,
+            [ServiceBus("process", Connection = "ServiceBusConnectionSend", EntityType = EntityType.Queue)] ICollector<string> queueCollector,
             string name, ILogger log)
         {
-            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {addedBlob.Length} Bytes");
+            using var reader = new StreamReader(addedBlob);
+            var original = await reader.ReadToEndAsync();
+            original = original.Replace(",", "").Replace(".", "");
+            var words = original.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            return name;
+            foreach (var word in words)
+            {
+                queueCollector.Add(word);
+            }
         }
-
-        #region vNext
-
-        //[FunctionName("HandleFile")]
-        //public static async Task Run(
-        //    [BlobTrigger("to-process/{name}", Connection = "StorageConnectionString")]Stream addedBlob,
-        //    [ServiceBus("process", Connection = "ServiceBusConnectionSend", EntityType = EntityType.Queue)] ICollector<string> queueCollector,
-        //    string name, ILogger log)
-        //{
-        //    log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {addedBlob.Length} Bytes");
-
-        //    using (var reader = new StreamReader(addedBlob))
-        //    {
-        //        var words = (await reader.ReadToEndAsync()).Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        //        Parallel.ForEach(words.Distinct(), (word) =>
-        //        {
-        //            var rnd = new Random();
-        //            queueCollector.Add(word);
-        //        });
-        //    }
-        //}
-
-        #endregion
     }
 }
