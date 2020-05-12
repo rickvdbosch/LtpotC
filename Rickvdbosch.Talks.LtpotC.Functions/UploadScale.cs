@@ -14,7 +14,7 @@ namespace Rickvdbosch.Talks.LtpotC.Functions
         [FunctionName("UploadScale")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "scale")] HttpRequest req,
-            [Blob("to-process", FileAccess.Write, Connection = "StorageConnectionString")] Stream stream,
+            [Blob("to-process/{rand-guid}.txt", FileAccess.Write, Connection = "StorageConnectionString")] Stream stream,
             ILogger log)
         {
             if (req.Form.Files.Count != 1)
