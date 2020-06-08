@@ -15,7 +15,8 @@ namespace Rickvdbosch.Talks.LtpotC
     public static class UploadFile
     {
         [FunctionName("UploadFile")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "files")] HttpRequest req, ILogger log)
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "files")] HttpRequest req, ILogger log)
         {
             var connectionString = Environment.GetEnvironmentVariable("StorageConnectionString", EnvironmentVariableTarget.Process);
             var blobStorageRepository = new BlobStorageRepository(connectionString);
